@@ -14,7 +14,7 @@ const router = createBrowserRouter([
   {
     path: '/',
     element: <App></App>,
-    // errorElement: <ErrorPage />,
+    errorElement: <ErrorPage />,
     children: [
 
       {
@@ -23,7 +23,7 @@ const router = createBrowserRouter([
       }, {
         path: 'books',
         element: <Books></Books>,
-        loader: () => fetch('../book.json'),
+        loader: () => fetch('https://api.itbook.store/1.0/new'),
       }, {
         path: 'book/:id',
         element: <BookDetails></BookDetails>,

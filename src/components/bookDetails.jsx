@@ -11,7 +11,7 @@ const BookDetails = () => {
     const [read, setRead] = useState(true)
     const { image, title, authors, publisher, year, rating, desc, price } = useLoaderData()
     return (
-        <div className='MyContainer  flex items-center justify-center gap-6'>
+        <div className='MyContainer  flex flex-col md:flex-row items-center justify-center gap-6'>
             <img className='h-[500px]' src={image} alt="" />
             <div className="info max-w-[650px]">
                 <p className='badge animate-bounce w-32'>BRAND NEW</p>

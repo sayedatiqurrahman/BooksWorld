@@ -4,7 +4,7 @@ import Lottie from 'lottie-react';
 import animation from '../assets/education.json'
 const Home = () => {
     return (
-        <div className="MyContainer  flex items-center px-4">
+        <div className="MyContainer  flex flex-col-reverse items-center lg:flex-row px-4">
             <div className="left   w-full max-w-screen-sm">
                 <p className="badge animate-bounce w-28 ">ON FREE!</p>
                 <h2 className="h1 my-4">A reader lives a
@@ -17,7 +17,7 @@ const Home = () => {
                 <Link className="ml-5 text-purple-900 font-semibold " to="/about">Learn More ...</Link>
             </div>
             <div className="right">
-                <Lottie animationData={animation} loop={true} />
+                <Lottie className='h-96 lg:h-full' animationData={animation} loop={true} />
             </div>
         </div>
     );

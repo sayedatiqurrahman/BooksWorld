@@ -1,0 +1,28 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+.MyContainer {
+  @apply w-full max-w-7xl mx-auto mt-3 px-4
+}
+
+
+.active {
+  @apply text-purple-700
+}
+
+.default {
+  @apply hover:text-violet-500 font-semibold duration-200
+}
+
+.badge {
+  @apply bg-purple-800 text-white px-3 rounded-full text-center
+}
+
+.h1 {
+  @apply text-4xl
+}
+
+.btn {
+  @apply bg-purple-800 text-white px-4 rounded-full mt-4 py-2
+}

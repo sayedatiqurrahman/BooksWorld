@@ -8,7 +8,7 @@ const ErrorPage = () => {
     return (
         <div className='flex flex-col h-[calc(100vh-150px)] justify-center items-center'>
             <h1 className='text-7xl'>{status}</h1>
-            <p>{error.message}</p>
+            <p>{error.message ? error.message : 'Unknown Error'}</p>
         </div>
     );
 };

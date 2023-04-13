@@ -9,6 +9,7 @@ import About from './components/About'
 import BookDetails from './components/bookDetails'
 import Loading from './components/Loading'
 import ErrorPage from './components/ErrorPage'
+import Login from './login'
 
 const router = createBrowserRouter([
   {
@@ -34,6 +35,9 @@ const router = createBrowserRouter([
       }, {
         path: 'loading',
         element: <Loading />,
+      }, {
+        path: 'login',
+        element: <Login />,
       }
     ]
   },

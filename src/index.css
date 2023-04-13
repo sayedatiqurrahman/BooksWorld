@@ -18,11 +18,16 @@
 .badge {
   @apply bg-purple-800 text-white px-3 rounded-full text-center
 }
-
+buton{
+  @apply cursor-pointer
+}
+.logBtn{
+  @apply p-1 border-2 border-[#5d23c91e] rounded-lg
+}
 .h1 {
-  @apply text-4xl
+  @apply text-4xl font-semibold
 }
 
 .btn {
-  @apply bg-purple-800 text-white px-4 rounded-full mt-4 py-2
+  @apply bg-purple-800 text-white px-4 rounded-xl mt-4 py-2
 }

@@ -6,7 +6,7 @@ const Home = () => {
     return (
         <div className="MyContainer  flex flex-col-reverse items-center lg:flex-row px-4">
             <div className="left   w-full max-w-screen-sm">
-                <p className="badge animate-bounce w-28 ">ON FREE!</p>
+                <p className="badge animate-bounce w-28 ">😍FREE!🥰</p>
                 <h2 className="h1 my-4">A reader lives a
                     thousand lives  <br /><span className="text-purple-800">before he dies</span></h2>
 

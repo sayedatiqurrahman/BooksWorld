@@ -1,0 +1,122 @@
+import React, { useEffect, useState } from 'react'
+import Lottie from 'lottie-react'
+import login from './assets/login.json'
+import google from './assets/google-logo.json'
+import facebook from './assets/facebook.json'
+import twitter from './assets/twitter.json'
+import github from './assets/github.json'
+import LoginForm from './components/LoginForm'
+import SignUpForm from './components/SignUpForm'
+import { FacebookAuthProvider, GithubAuthProvider, GoogleAuthProvider, TwitterAuthProvider, getAuth, signInWithPopup } from 'firebase/auth'
+import { app } from './components/firebase/firebase.init'
+
+const Login = () => {
+    const auth = getAuth(app)
+    const GoogleProvider = new GoogleAuthProvider()
+    const FacebookProvider = new FacebookAuthProvider()
+    const TwitterProvider = new TwitterAuthProvider()
+    const GitHubProvider = new GithubAuthProvider()
+
+    const [sign, setSign] = useState(false)
+
+    const [user, setUser] = useState(null)
+
+    const handleGoogleSignIn = () => {
+        signInWithPopup(auth, GoogleProvider)
+            .then(result => {
+                const loadedUser = result.user;
+                localStorage.setItem('user', JSON.stringify(loadedUser))
+                setSign(!user)
+            })
+            .catch(error => { console.log('GoogleError', error.message) })
+    }
+
+    const handleFacebookSignIn = () => {
+        signInWithPopup(auth, FacebookProvider)
+            .then(result => {
+                const loadedUser = result.user;
+                localStorage.setItem('user', JSON.stringify(loadedUser))
+                setSign(!user)
+            })
+            .catch(error => {
+                console.log('Fberror', error.message)
+            })
+
+    }
+    const handleTwitterSignIn = () => {
+        signInWithPopup(auth, TwitterProvider)
+            .then(result => {
+                const loadedUser = result.user;
+                localStorage.setItem('user', JSON.stringify(loadedUser))
+                setSign(!user)
+            })
+            .catch(error => console.log('TwitterError', error.message))
+
+    }
+    const handleGithubSignIn = () => {
+        signInWithPopup(auth, GitHubProvider)
+            .then(result => {
+                const loadedUser = result.user;
+                localStorage.setItem('user', JSON.stringify(loadedUser))
+                setSign(!user)
+            })
+            .catch(error => console.log('GithubError', error.message))
+
+    }
+    const DBUser = localStorage.getItem('user')
+    useEffect(() => {
+        setUser(JSON.parse(DBUser))
+    }, [sign])
+
+    return (
+        <>
+            <h1 className='text-center h1 mt-12 text-purple-700 my-5'>Welcome to books World</h1>
+            <div className='flex flex-col-reverse md:flex-row gap-5 md:gap-32  justify-center p-5 items-center MyContainer'>
+                <div >
+
+                    {
+                        !sign ? <LoginForm /> : <SignUpForm />
+                    }
+
+                    <hr className='my-4' />
+                    <div>
+
+                        <p className='font-semibold text-center'>Login with  /
+                            {
+                                !sign ? <button className='text-purple-700 ml-1' onClick={() => setSign(true)}>Sign up</button> : <button className='text-purple-700 ml-1' onClick={() => setSign(false)}>Login</button>
+                            }
+                        </p>
+                        <br />
+                        <div className='flex gap-1 flex-wrap'>
+                            <button onClick={handleGoogleSignIn} className='logBtn'><Lottie className='h-20' animationData={google} loop={true}></Lottie></button>
+                            <button onClick={handleFacebookSignIn} className='logBtn'><Lottie className='h-20' animationData={facebook} loop={true}></Lottie></button>
+                            <button onClick={handleTwitterSignIn} className='logBtn' disabled><Lottie className='h-20' animationData={twitter} loop={true}></Lottie></button>
+                            <button onClick={handleGithubSignIn} className='logBtn '><Lottie className='h-12 w-20' animationData={github} loop={true}></Lottie></button>
+                        </div>
+                    </div>
+                </div>
+                <div>
+                    <Lottie animationData={login} className='h-96 md:h-[450px]' loop={true} />
+                </div>
+            </div>
+
+
+            <hr className='my-7' />
+            {
+                user &&
+                <div className='flex flex-col md:flex-row text-center md:text-left justify-center gap-5 items-center'>
+                    <div className='text-5xl font-semibold  font-sans text-gray-700 md:border-r-2 pr-4'>Your Profile</div>
+                    <img className='h-16 w-16 rounded-full ' src={user?.photoURL} alt="" />
+                    <div>
+                        <p className='text-lg font-semibold'>{user?.displayName}</p>
+                        <p>{user?.email}</p>
+                    </div>
+                </div>
+            }
+            <br />
+            <hr />
+        </>
+    );
+};
+
+export default Login;

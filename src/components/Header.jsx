@@ -11,7 +11,8 @@ const Header = () => {
                 <NavLink className='default' to="/">Home</NavLink>
                 <NavLink className='default' to="books">Books</NavLink>
                 <NavLink className='default' to="about">About</NavLink>
-                {/* className = { isActice => isActice ? 'active' : 'default'} */}
+                <NavLink className='default' to="login">Login</NavLink>
+                {/* className = { isActive => isActive ? 'active' : 'default'} */}
             </div>
         </div>
     );

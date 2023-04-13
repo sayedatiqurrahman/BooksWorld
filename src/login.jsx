@@ -7,7 +7,7 @@ import twitter from './assets/twitter.json'
 import github from './assets/github.json'
 import LoginForm from './components/LoginForm'
 import SignUpForm from './components/SignUpForm'
-import { FacebookAuthProvider, GithubAuthProvider, GoogleAuthProvider, TwitterAuthProvider, getAuth, signInWithPopup } from 'firebase/auth'
+import { FacebookAuthProvider, GithubAuthProvider, GoogleAuthProvider, TwitterAuthProvider, getAuth, signInWithPopup, signOut } from 'firebase/auth'
 import { app } from './components/firebase/firebase.init'
 
 const Login = () => {
@@ -63,6 +63,19 @@ const Login = () => {
             .catch(error => console.log('GithubError', error.message))
 
     }
+
+    const handleSignOut = () => {
+        signOut(auth)
+            .then(result => {
+                localStorage.clear()
+                setSign(!user)
+                setUser(null)
+
+            })
+            .catch(error => console.log('ErrorSignOut', error.message))
+    }
+
+
     const DBUser = localStorage.getItem('user')
     useEffect(() => {
         setUser(JSON.parse(DBUser))
@@ -104,13 +117,15 @@ const Login = () => {
             <hr className='my-7' />
             {
                 user &&
-                <div className='flex flex-col md:flex-row text-center md:text-left justify-center gap-5 items-center'>
+                <div className='MyContainer flex flex-col md:flex-row text-center md:text-left justify-center gap-5 lg:px-20 items-center'>
                     <div className='text-5xl font-semibold  font-sans text-gray-700 md:border-r-2 pr-4'>Your Profile</div>
                     <img className='h-16 w-16 rounded-full ' src={user?.photoURL} alt="" />
                     <div>
                         <p className='text-lg font-semibold'>{user?.displayName}</p>
                         <p>{user?.email}</p>
                     </div>
+
+                    <button onClick={handleSignOut} className='bg-opacity-10  bg-purple-900 px-5 lg:px-6 py-3 font-semibold rounded-lg border-2 border-purple-700 md:ml-auto'>Sign Out</button>
                 </div>
             }
             <br />

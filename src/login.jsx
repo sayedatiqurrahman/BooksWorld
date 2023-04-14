@@ -84,7 +84,7 @@ const Login = () => {
     return (
         <>
             <h1 className='text-center h1 mt-12 text-purple-700 my-5'>Welcome to books World</h1>
-            <div className='flex flex-col-reverse md:flex-row gap-5 md:gap-32  justify-center p-5 items-center MyContainer'>
+            <div className='flex flex-col-reverse md:flex-row gap-5 md:gap-10 lg:gap-32  justify-center p-5 items-center MyContainer'>
                 <div >
 
                     {
@@ -93,12 +93,21 @@ const Login = () => {
 
                     <hr className='my-4' />
                     <div>
-
-                        <p className='font-semibold text-center'>Login with  /
+                        {/* <p className='text-center text-purple-600 max-w-sm'>
                             {
-                                !sign ? <button className='text-purple-700 ml-1' onClick={() => setSign(true)}>Sign up</button> : <button className='text-purple-700 ml-1' onClick={() => setSign(false)}>Login</button>
+                                !sign ? <span >If You Have not  account </span> : <span >If You Have already an account click the login (<FontAwesome></FontAwesome>)</span>
                             }
-                        </p>
+                        </p> */}
+                        <div className='font-semibold text-center'>Login with  /
+                            {
+                                !sign ? <button className='text-purple-700 ml-1 underline' onClick={() => setSign(true)}>Sign up</button> : <>
+                                    <span className='ml-1'>If you have already an Account </span>
+                                    <button className='text-purple-700  underline' onClick={() => setSign(false)}> Login</button>
+
+
+                                </>
+                            }
+                        </div>
                         <br />
                         <div className='flex gap-1 flex-wrap'>
                             <button onClick={handleGoogleSignIn} className='logBtn'><Lottie className='h-20' animationData={google} loop={true}></Lottie></button>

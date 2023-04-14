@@ -1,13 +1,39 @@
-import React from 'react';
-
+import React, { useState } from 'react';
+import { getAuth, createUserWithEmailAndPassword } from "firebase/auth";
 const SignUpForm = () => {
+    const auth = getAuth();
+    const [error, setError] = useState()
+    const [success, setSuccess] = useState()
+    const handleCreateUser = (event) => {
+        event.preventDefault();
+        const name = event.target.name.value;
+        const email = event.target.email.value;
+        const password = event.target.password.value;
+        console.log(name, email, password);
+
+        setError('')
+        setSuccess('')
+        createUserWithEmailAndPassword(auth, email, password)
+            .then(result => {
+                const user = result.user;
+                console.log(user);
+                setSuccess('Created user successfully')
+            })
+            .catch(err => {
+                setError(err.message || 'Unknown error');
+            });
+    }
+
     return (
-        <div className='flex flex-col gap-5'>
-            <input className=' focus:outline-none py-2 px-3 bg-[#5d23c91e] rounded-lg' placeholder='Enter Your Name' type="text" />
-            <input className=' focus:outline-none py-2 px-3 bg-[#5d23c91e] rounded-lg' placeholder='Enter Your Email' type="email" />
-            <input className='max-w-96 w-full focus:outline-none py-2 px-3 bg-[#5d23c91e] rounded-lg' placeholder='Enter Your Password' type="password" />
-            <button className=' bg-opacity-20 bg-purple-900  py-2 font-semibold rounded-xl'>Sign Up</button>
-        </div>
+        <form onSubmit={handleCreateUser} className='flex flex-col gap-5'>
+            <input name='name' className=' focus:outline-none py-2 px-3 bg-[#5d23c91e] rounded-lg' placeholder='Enter Your Name' type="text" />
+            <input name='email' className=' focus:outline-none py-2 px-3 bg-[#5d23c91e] rounded-lg' placeholder='Enter Your Email' type="email" />
+            <input name='password' className='max-w-96 w-full focus:outline-none py-2 px-3 bg-[#5d23c91e] rounded-lg' placeholder='Enter Your Password' type="password" />
+            <p className='text-green-700 text-center'><small>{success}</small></p>
+            <p className='text-red-700 text-center'><small>{error}</small></p>
+            <button type="submit" className=' bg-opacity-20 bg-purple-900  py-2 font-semibold rounded-xl'>Sign Up</button>
+
+        </form>
     );
 };
 

@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { getAuth, createUserWithEmailAndPassword } from "firebase/auth";
+import { getAuth, createUserWithEmailAndPassword, sendEmailVerification, updateCurrentUser, updateProfile } from "firebase/auth";
 const SignUpForm = () => {
     const auth = getAuth();
     const [error, setError] = useState()
@@ -9,19 +9,27 @@ const SignUpForm = () => {
         const name = event.target.name.value;
         const email = event.target.email.value;
         const password = event.target.password.value;
-        console.log(name, email, password);
 
         setError('')
         setSuccess('')
         createUserWithEmailAndPassword(auth, email, password)
             .then(result => {
                 const user = result.user;
-                console.log(user);
                 setSuccess('Created user successfully')
+
+                updateProfile(auth.currentUser, {
+                    displayName: name,
+                }).then(result => { }).catch(error => { setError(error.message) })
+                sendEmailVerification(auth.currentUser)
+                    .then(result => {
+                        alert('check your email to verify ')
+                    })
+                    .catch(err => { setError(err.message) })
             })
             .catch(err => {
                 setError(err.message || 'Unknown error');
             });
+
     }
 
     return (

@@ -1,7 +1,11 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import logo from '../assets/favicon_io st logo/android-chrome-512x512.png'
 import { Link, NavLink } from 'react-router-dom';
+import { AuthContext } from './AuthProviders';
+
 const Header = () => {
+    const { user } = useContext(AuthContext)
+    console.log(user)
     return (
         <div className=' z-10 bg-opacity-75 bg-gray-100 xl:rounded-full MyContainer   flex justify-between items-center place-content-center '>
             <Link to='/'>
@@ -14,6 +18,12 @@ const Header = () => {
                 <NavLink className='default' to="login">Login</NavLink>
                 {/* className = { isActive => isActive ? 'active' : 'default'} */}
             </div>
+            {
+                user &&
+                <button className='default'>
+                    {user.displayName}
+                </button>
+            }
         </div>
     );
 };

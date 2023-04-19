@@ -8,7 +8,8 @@ import github from './assets/github.json'
 import LoginForm from './components/LoginForm'
 import SignUpForm from './components/SignUpForm'
 import { FacebookAuthProvider, GithubAuthProvider, GoogleAuthProvider, TwitterAuthProvider, getAuth, signInWithPopup, signOut } from 'firebase/auth'
-import { app } from './components/firebase/firebase.init'
+import app from './components/firebase/firebase.init'
+
 
 const Login = () => {
     const auth = getAuth(app)

@@ -1,11 +1,15 @@
 import React, { useRef, useState } from 'react';
 import { getAuth, sendPasswordResetEmail, signInWithEmailAndPassword } from "firebase/auth";
-import { Link } from 'react-router-dom';
+import { Link, useLocation, useNavigate } from 'react-router-dom';
 
-const auth = getAuth();
 const LoginForm = () => {
+    const auth = getAuth();
     const [error, setError] = useState()
     const [success, setSuccess] = useState()
+    const navigate = useNavigate()
+    const location = useLocation()
+    console.log(location)
+    const from = location.state?.from.pathname || '/';
     const handleLogin = (event) => {
         event.preventDefault()
         const email = event.target.email.value;
@@ -17,6 +21,8 @@ const LoginForm = () => {
         signInWithEmailAndPassword(auth, email, password)
             .then(res => {
                 setSuccess('you have successfully logged in')
+                navigate(from, { replace: true })
+
             })
             .catch(err => setError(err.message))
     }

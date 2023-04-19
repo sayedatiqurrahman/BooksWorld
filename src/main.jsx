@@ -10,6 +10,8 @@ import BookDetails from './components/bookDetails'
 import Loading from './components/Loading'
 import ErrorPage from './components/ErrorPage'
 import Login from './login'
+import AuthProviders from './components/AuthProviders'
+import PrivateRoute from './components/PriveateRoute'
 
 const router = createBrowserRouter([
   {
@@ -27,7 +29,7 @@ const router = createBrowserRouter([
         loader: () => fetch('https://api.itbook.store/1.0/new'),
       }, {
         path: 'book/:id',
-        element: <BookDetails></BookDetails>,
+        element: <PrivateRoute><BookDetails></BookDetails></PrivateRoute>,
         loader: ({ params }) => fetch(`https://api.itbook.store/1.0/books/${params.id}`),
       }, {
         path: 'about',
@@ -45,6 +47,8 @@ const router = createBrowserRouter([
 
 ReactDOM.createRoot(document.getElementById('root')).render(
   <React.StrictMode>
-    <RouterProvider router={router} />
+    <AuthProviders>
+      <RouterProvider router={router} />
+    </AuthProviders>
   </React.StrictMode>,
 )
